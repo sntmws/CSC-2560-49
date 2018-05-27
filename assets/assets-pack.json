@@ -1,0 +1,691 @@
+{
+    "start": [
+        {
+            "type": "image",
+            "key": "bg-1",
+            "url": "assets/images/bg/bg-1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-2",
+            "url": "assets/images/bg/bg-2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-3",
+            "url": "assets/images/bg/bg-3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-4",
+            "url": "assets/images/bg/bg-4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-5",
+            "url": "assets/images/bg/bg-5.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-6",
+            "url": "assets/images/bg/bg-6.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-7",
+            "url": "assets/images/bg/bg-7.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-8",
+            "url": "assets/images/bg/bg-8.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "title",
+            "url": "assets/images/title.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-12",
+            "url": "assets/images/ui/ui-12.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-20",
+            "url": "assets/images/ui/ui-20.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-13",
+            "url": "assets/images/ui/bt-13.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-14",
+            "url": "assets/images/ui/bt-14.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-24",
+            "url": "assets/images/ui/ui-24.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-5",
+            "url": "assets/images/ui/ui-5.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-10",
+            "url": "assets/images/ui/ui-10.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-5",
+            "url": "assets/images/ui/bt-5.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-6",
+            "url": "assets/images/ui/bt-6.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-15",
+            "url": "assets/images/ui/ui-15.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-38",
+            "url": "assets/images/ui/ui-38.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-18",
+            "url": "assets/images/ui/ui-18.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "ui-31",
+            "url": "assets/images/ui/ui-31.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-10",
+            "url": "assets/images/myui/myui-10.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-1",
+            "url": "assets/images/myui/myui-1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-2",
+            "url": "assets/images/myui/myui-2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-3",
+            "url": "assets/images/myui/myui-3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-4",
+            "url": "assets/images/myui/myui-4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-23",
+            "url": "assets/images/ui/bt-23.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-42",
+            "url": "assets/images/ui/bt-42.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bt-43",
+            "url": "assets/images/ui/bt-43.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "black",
+            "url": "assets/images/black.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-5",
+            "url": "assets/images/myui/myui-5.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "myui-6",
+            "url": "assets/images/myui/myui-6.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "green",
+            "url": "assets/images/green.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "red",
+            "url": "assets/images/red.png",
+            "overwrite": false
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-01",
+            "url": "assets/images/characters/char-01.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-02",
+            "url": "assets/images/characters/char-02.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-03",
+            "url": "assets/images/characters/char-03.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-04",
+            "url": "assets/images/characters/char-04.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-05",
+            "url": "assets/images/characters/char-05.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-06",
+            "url": "assets/images/characters/char-06.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-07",
+            "url": "assets/images/characters/char-07.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-08",
+            "url": "assets/images/characters/char-08.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-09",
+            "url": "assets/images/characters/char-09.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-10",
+            "url": "assets/images/characters/char-10.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-11",
+            "url": "assets/images/characters/char-11.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-12",
+            "url": "assets/images/characters/char-12.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-13",
+            "url": "assets/images/characters/char-13.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-14",
+            "url": "assets/images/characters/char-14.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-15",
+            "url": "assets/images/characters/char-15.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-16",
+            "url": "assets/images/characters/char-16.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-17",
+            "url": "assets/images/characters/char-17.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-18",
+            "url": "assets/images/characters/char-18.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-19",
+            "url": "assets/images/characters/char-19.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-20",
+            "url": "assets/images/characters/char-20.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-21",
+            "url": "assets/images/characters/char-21.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-22",
+            "url": "assets/images/characters/char-22.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-23",
+            "url": "assets/images/characters/char-23.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-24",
+            "url": "assets/images/characters/char-24.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-25",
+            "url": "assets/images/characters/char-25.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-26",
+            "url": "assets/images/characters/char-26.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-27",
+            "url": "assets/images/characters/char-27.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-28",
+            "url": "assets/images/characters/char-28.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-29",
+            "url": "assets/images/characters/char-29.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-30",
+            "url": "assets/images/characters/char-30.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-31",
+            "url": "assets/images/characters/char-31.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-32",
+            "url": "assets/images/characters/char-32.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-33",
+            "url": "assets/images/characters/char-33.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-34",
+            "url": "assets/images/characters/char-34.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-35",
+            "url": "assets/images/characters/char-35.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-36",
+            "url": "assets/images/characters/char-36.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-37",
+            "url": "assets/images/characters/char-37.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-38",
+            "url": "assets/images/characters/char-38.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-39",
+            "url": "assets/images/characters/char-39.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "char-40",
+            "url": "assets/images/characters/char-40.png",
+            "frameWidth": 64,
+            "frameHeight": 64,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "robot-tilesheet",
+            "url": "assets/images/characters/robot-tilesheet.png",
+            "frameWidth": 567,
+            "frameHeight": 556,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "image",
+            "key": "bg2-1",
+            "url": "assets/images/bg/bg2-1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg2-2",
+            "url": "assets/images/bg/bg2-2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg2-3",
+            "url": "assets/images/bg/bg2-3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg2-4",
+            "url": "assets/images/bg/bg2-4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "highlighter",
+            "url": "assets/images/myui/highlighter.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "highlighterBorder",
+            "url": "assets/images/myui/highlighterBorder.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pointer",
+            "url": "assets/images/myui/pointer.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "qrCodeBg",
+            "url": "assets/images/bg/qrCodeBg.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pointerBorder",
+            "url": "assets/images/myui/pointerBorder.png",
+            "overwrite": false
+        }
+    ],
+    "preload": [{
+        "type": "image",
+        "key": "loading",
+        "url": "assets/images/loading.png",
+        "overwrite": false
+    }],
+    "meta": {
+        "generated": "1526572636994",
+        "app": "Phaser Editor",
+        "url": "http://phasereditor.boniatillo.com",
+        "version": "1.0",
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
+}

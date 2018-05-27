@@ -1,0 +1,31 @@
+html {
+	font-family: xfont;
+	overflow: hidden;
+}
+body {
+	font-family: xfont;
+	background: #C1BDBA;
+	margin: 0;
+	padding: 0;
+}
+#loadingFont {
+	font-family: xfont;
+	position: absolute;
+	left: -1920px;
+	visibility: hidden;
+}
+#Main {
+	font-family: xfont;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#QRCodeScanner {
+	font-family: xfont;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: -1920px;
+	visibility: hidden;
+}

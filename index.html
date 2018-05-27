@@ -1,0 +1,605 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="user-scalable=no, user-scalable=0, width=device-width, initial-scale=1">
+		<script type="text/javascript" src="js/plugins/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/plugins/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/codemirror.css">
+		<link rel="stylesheet" href="css/my.css">
+		<script type="text/javascript" src="js/plugins/socket.io.min.js"></script>
+		<script type="text/javascript" src="js/plugins/phaser.min.js"></script>
+		<script type="text/javascript" src="js/plugins/phaser.input.min.js"></script>
+		<script type="text/javascript" src="js/plugins/collie.min.js"></script>
+		<script type="text/javascript" src="js/plugins/phaser-kinetic-scrolling-plugin.js"></script>
+		<script type="text/javascript" src="js/plugins/phaser-list-view.js"></script>
+		<script type="text/javascript" src="js/plugins/fingerprint2.js"></script>
+		<script type="text/javascript" src="js/plugins/lodash.core.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/grid.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/version.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/detector.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/formatinf.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/errorlevel.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/bitmat.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/datablock.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/bmparser.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/datamask.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/rsdecoder.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/gf256poly.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/gf256.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/decoder.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/QRCode.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/findpat.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/alignpat.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/databr.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/qr.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/camera.js"></script>
+		<script type="text/javascript" src="js/plugins/jsqrcode/init.js"></script>
+		<script type="text/javascript" src="js/plugins/codemirror.js"></script>
+		<script type="text/javascript" src="js/plugins/codemirror-mode/javascript.js"></script>
+		<script type="text/javascript" src="js/plugins/fullscreen.js"></script>
+		<title>Algorithms</title>
+		<link rel="shortcut icon" href="favicon.png">
+		<style>
+			@font-face {
+			font-family: 'xfont';
+			src: url('assets/fonts/CSChatThai.ttf') format('truetype');
+			}
+		</style>
+	</head>
+	<body>
+		<span id="loadingFont">สำหรับโหลดฟอนต์เท่านั้น</span>
+		<div id="Main"></div>
+		<div id="QRCodeScanner">
+			<video  id="camsource"  muted autoplay playsinline></video>
+			<canvas id="qr-canvas" width="320" height="240" style="display:none"></canvas>
+		</div>
+		<div class="modal fade" id="loginModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">ลงชื่อเข้าใช้</h1>
+					</div>
+					<div class="modal-body">
+						<form class="form-group">
+							<label for="usernameL">ชื่อผู้ใช้/รหัสนักศึกษา:</label>
+							<input type="text" class="form-control form-control-lg" id="usernameL" placeholder="กรอกชื่อผู้ใช้หรือรหัสนักศึกษา" required>
+							<label for="passwordL">รหัสผ่าน:</label>
+							<input type="password" class="form-control form-control-lg" id="passwordL" placeholder="กรอกรหัสผ่าน" required>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" onclick="loginValidation(document.getElementById('usernameL').value, document.getElementById('passwordL').value)">ยืนยัน</button>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false;" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="registerModalT" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">สมัครสมาชิก</h1>
+					</div>
+					<div class="modal-body">
+						<form class="form-group">
+							<label for="usernameRT">ชื่อผู้ใช้:</label>
+							<input type="text" class="form-control form-control-lg" id="usernameRT" placeholder="กรอกชื่อผู้ใช้" required>
+							<label for="passwordRT1">รหัสผ่าน:</label>
+							<input type="password" class="form-control form-control-lg" id="passwordRT1" placeholder="กรอกรหัสผ่าน" required>
+							<label for="passwordRT2">ยืนยันรหัสผ่าน:</label>
+							<input type="password" class="form-control form-control-lg" id="passwordRT2" placeholder="กรอกรหัสผ่านอีกครั้ง" required>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" onclick="registerValidation(null, null, null, document.getElementById('usernameRT').value, document.getElementById('passwordRT1').value, document.getElementById('passwordRT2').value)">ยืนยัน</button>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false;" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="registerModalS" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title">สมัครสมาชิก</h2>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<form class="form-group">
+								<label for="titleRS">คำนำหน้าชื่อ:</label>
+								<select class="form-control form-control-lg" id="titleRS" required>
+									<option value="นาย">นาย</option>
+									<option value="นาง">นาง</option>
+									<option value="นางสาว">นางสาว</option>
+								</select>
+								<label for="firstNameRS">ชื่อ:</label>
+								<input type="text" class="form-control form-control-lg" id="firstNameRS" placeholder="กรอกชื่อ" required>
+								<label for="lastNameRS">นามสกุล:</label>
+								<input type="text" class="form-control form-control-lg" id="lastNameRS" placeholder="กรอกนามสกุล" required>
+								<label for="usernameRS">รหัสนักศึกษา (-):</label>
+								<input type="text" class="form-control form-control-lg" id="usernameRS" placeholder="กรอกรหัสนักศึกษามีขีด (-)" required>
+								<label for="passwordRS1">รหัสผ่าน:</label>
+								<input type="password" class="form-control form-control-lg" id="passwordRS1" placeholder="กรอกรหัสผ่าน" required>
+								<label for="passwordRS2">ยืนยันรหัสผ่าน:</label>
+								<input type="password" class="form-control form-control-lg" id="passwordRS2" placeholder="กรอกรหัสผ่านอีกครั้ง" required>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" onclick="registerValidation(document.getElementById('titleRS').value, document.getElementById('firstNameRS').value, document.getElementById('lastNameRS').value, document.getElementById('usernameRS').value, document.getElementById('passwordRS1').value, document.getElementById('passwordRS2').value)">ยืนยัน</button>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false;" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="createRoomModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">เพิ่มการทำกิจกรรม</h1>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<form class="form-group">
+								<label for="creSemester">ภาคเรียน:</label>
+								<input type="text" class="form-control form-control-lg" id="creSemester" placeholder="กรอกภาคเรียน (Ex. 2/2560)" value="2/2560" required>
+								<label for="creSection">กลุ่มเรียน:</label>
+								<input type="text" class="form-control form-control-lg" id="creSection" placeholder="กรอกกลุ่มเรียน (Ex. 1)" value="1" required>
+								<label for="creAlgoType">ประเภทขั้นตอนวิธี:</label><br>
+								<select class="form-control form-control-lg" id="creAlgoType">
+									<option value="search">การค้นหา (Search)</option>
+									<option value="sort">การจัดเรียง (Sort)</option>
+								</select>
+								<label for="creAlgoName">ชื่อขั้นตอนวิธี:</label><br>
+								<select class="form-control form-control-lg" id="creAlgoName">
+								</select>
+								<label for="creParType">ประเภทข้อมูล:</label><br>
+								<select class="form-control form-control-lg" id="creParType">
+									<option value="number">ตัวเลข (Ex. 456123)</option>
+								</select>
+								<div id="creParSortingDiv" style="display: block">
+									<label for="creParSorting">จัดเรียงข้อมูล:</label><br>
+									<select class="form-control form-control-lg" id="creParSorting">
+										<option value="unsorted">ไม่ต้องการ</option>
+										<option value="sorted">ต้องการ</option>
+									</select>
+								</div>
+								<div id="creParSortingTypeDiv" style="display: none">
+									<label for="creParSortingType">รูปแบบการจัดเรียงข้อมูล:</label><br>
+									<select class="form-control form-control-lg" id="creParSortingType">
+										<option value="ascending">น้อยไปมาก</option>
+										<option value="descending">มากไปน้อย</option>
+									</select>
+								</div>
+								<label for="creDesiredStds">จำนวนผู้เล่นในครั้งนี้ (3-41):</label><br>
+								<input type="number" class="form-control form-control-lg" id="creDesiredStds" min="3" max="41" value="3"/>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" onclick="createRoom(document.getElementById('creSemester').value, document.getElementById('creSection').value, document.getElementById('creAlgoType').value, document.getElementById('creAlgoName').value, document.getElementById('creParType').value, document.getElementById('creParSorting').value, document.getElementById('creParSortingType').value, document.getElementById('creDesiredStds').value)">ยืนยัน</button>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false;" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="creIssueReportModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">พบข้อผิดพลาดในลำดับการเล่น</h1>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<tbody id="creIssueReportMsg">
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" data-dismiss="modal" onclick="app.paused = false;">ทำต่อ</button>
+						<button type="button" class="btn btn-danger btn-lg" onclick="window.location.reload();">ยกเลิก</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="algoManagerModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">จัดการขั้นตอนวิธี</h1>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<form class="form-group">
+								<label class="radio-inline"><input type="radio" name="algoManageType" value="add" checked>เพิ่ม</label>
+								<label class="radio-inline"><input type="radio" name="algoManageType" value="edit">แก้ไข</label>
+								<label class="radio-inline"><input type="radio" name="algoManageType" value="del">ลบ</label><br>
+								<div id="addAlgoDiv" style="display: block">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="addAlgoType">เลือกประเภทขั้นตอนวิธี:</label><br>
+											<select class="form-control form-control-lg" id="addAlgoType">
+												<option value="search">การค้นหา (Search)</option>
+												<option value="sort">การจัดเรียง (Sort)</option>
+											</select>
+											<br>
+											<label for="addAlgoNameText">ชื่อขั้นตอนวิธี:</label>
+											<input type="text" class="form-control form-control-lg" id="addAlgoNameText" placeholder="กรอกชื่อขั้นตอนวิธี" required><br>
+										</div>
+										<div class="col-md-4">
+											<label for="addAmtAlgoCode">เลือกจำนวนคำสั่ง (JavaScript):</label><br>
+											<select class="form-control form-control-lg" id="addAmtAlgoCode">
+												<option value="1">1 คำสั่ง</option>
+												<option value="2">2 คำสั่ง</option>
+												<option value="3">3 คำสั่ง</option>
+											</select>
+											<br>
+											<label for="addAlgoCodeSelect">เลือกคำสั่งที่ต้องการเพิ่ม:</label><br>
+											<select class="form-control form-control-lg" id="addAlgoCodeSelect">
+												<option value="1">คำสั่งหลัก (thisFn)</option>
+												<option value="2">คำสั่งรอง 1 (fn1)</option>
+												<option value="3">คำสั่งรอง 2 (fn2)</option>
+											</select>
+											<br>
+											<div id="addAlgoCodeMainDiv" style="display: block">
+												<textarea class="form-control form-control-lg" rows="7" id="addAlgoCodeMain" style="display: none;" required></textarea>
+												<br>
+											</div>
+											<div id="addAlgoCodeFn1Div" style="display: none">
+												<textarea class="form-control form-control-lg" rows="7" id="addAlgoCodeFn1" style="display: none;" required></textarea>
+												<br>
+											</div>
+											<div id="addAlgoCodeFn2Div" style="display: none">
+												<textarea class="form-control form-control-lg" rows="7" id="addAlgoCodeFn2" style="display: none;" required></textarea>
+												<br>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<label for="addAlgoGuideBe">คำแนะนำก่อนเล่น:</label>
+											<textarea class="form-control form-control-lg" rows="2" id="addAlgoGuideBe" required></textarea><br>
+											<label for="addAlgoGuideAf">คำแนะนำขณะเล่น:</label>
+											<textarea class="form-control form-control-lg" rows="2" id="addAlgoGuideAf" required></textarea><br>
+											<label for="addAlgoText">อัลกอริทึม (มีหรือไม่ก็ได้):</label>
+											<textarea class="form-control form-control-lg" rows="4" id="addAlgoText" value=""></textarea>
+										</div>
+									</div>
+								</div>
+								<div id="editAlgoDiv" style="display: none">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="editAlgoType">เลือกประเภทขั้นตอนวิธี:</label><br>
+											<select class="form-control form-control-lg" id="editAlgoType">
+												<option value="search">การค้นหา (Search)</option>
+												<option value="sort">การจัดเรียง (Sort)</option>
+											</select>
+											<br>
+											<label for="editAlgoName">เลือกขั้นตอนวิธี:</label><br>
+											<select class="form-control form-control-lg" id="editAlgoName">
+											</select><br>
+											<label for="editAlgoTypeNew">ประเภทขั้นตอนวิธี (แก้ไข):</label><br>
+											<select class="form-control form-control-lg" id="editAlgoTypeNew">
+												<option value="search">การค้นหา (Search)</option>
+												<option value="sort">การจัดเรียง (Sort)</option>
+											</select>
+											<br>
+											<label for="editAlgoNameNew">ชื่อขั้นตอนวิธี (แก้ไข):</label>
+											<input type="text" class="form-control form-control-lg" id="editAlgoNameNew" required><br>
+										</div>
+										<div class= "col-md-4">
+											<label for="editAmtAlgoCode">จำนวนคำสั่ง (JavaScript):</label><br>
+											<select class="form-control form-control-lg" id="editAmtAlgoCode">
+												<option value="1">1 คำสั่ง</option>
+												<option value="2">2 คำสั่ง</option>
+												<option value="3">3 คำสั่ง</option>
+											</select>
+											<br>
+											<label for="editAlgoCodeSelect">คำสั่งที่ต้องการแก้ไข:</label><br>
+											<select class="form-control form-control-lg" id="editAlgoCodeSelect">
+												<option value="1">คำสั่งหลัก (thisFn)</option>
+												<option value="2">คำสั่งรอง 1 (fn1)</option>
+												<option value="3">คำสั่งรอง 2 (fn2)</option>
+											</select>
+											<br>
+											<div id="editAlgoCodeMainDiv" style="display: block">
+												<textarea class="form-control form-control-lg" rows="7" id="editAlgoCodeMain" style="display: none;" required></textarea>
+												<br>
+											</div>
+											<div id="editAlgoCodeFn1Div" style="display: none">
+												<textarea class="form-control form-control-lg" rows="7" id="editAlgoCodeFn1" style="display: none;" required></textarea>
+												<br>
+											</div>
+											<div id="editAlgoCodeFn2Div" style="display: none">
+												<textarea class="form-control form-control-lg" rows="7" id="editAlgoCodeFn2" style="display: none;" required></textarea>
+												<br>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<label for="editAlgoGuideBe">คำแนะนำก่อนเล่น:</label>
+											<textarea class="form-control form-control-lg" rows="2" id="editAlgoGuideBe" required></textarea><br>
+											<label for="editAlgoGuideAf">คำแนะนำขณะเล่น:</label>
+											<textarea class="form-control form-control-lg" rows="2" id="editAlgoGuideAf" required></textarea><br>
+											<label for="editAlgoText">อัลกอริทึม (มีหรือไม่ก็ได้):</label>
+											<textarea class="form-control form-control-lg" rows="4" id="editAlgoText"></textarea>
+										</div>
+									</div>
+								</div>
+								<div id="delAlgoDiv" style="display: none">
+									<label for="delAlgoType">เลือกประเภทขั้นตอนวิธี:</label><br>
+									<select class="form-control form-control-lg" id="delAlgoType">
+										<option value="search">การค้นหา (Search)</option>
+										<option value="sort">การจัดเรียง (Sort)</option>
+									</select>
+									<br>
+									<label for="delAlgoName">เลือกขั้นตอนวิธี:</label><br>
+									<select class="form-control form-control-lg" id="delAlgoName">
+									</select><br>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning btn-lg mr-auto" data-dismiss="modal" data-toggle="modal" href="#fnDesignGuideModal">วิธีออกแบบคำสั่ง</button>
+						<div id="addAlgoFooter" style="display: block">
+							<button type="button" class="btn btn-info btn-lg" onclick="algoCheck(document.getElementById('addAlgoType').value, document.getElementById('addAmtAlgoCode').value, addAlgoCodeMain.getValue(), addAlgoCodeFn1.getValue(), addAlgoCodeFn2.getValue())">ทดสอบคำสั่ง</button>
+							<button type="button" class="btn btn-success btn-lg" id="addAlgoButton" onclick="addAlgo(document.getElementById('addAlgoType').value, document.getElementById('addAlgoNameText').value, document.getElementById('addAmtAlgoCode').value, addAlgoCodeMain.getValue(), addAlgoCodeFn1.getValue(), addAlgoCodeFn2.getValue(), document.getElementById('addAlgoGuideBe').value, document.getElementById('addAlgoGuideAf').value, document.getElementById('addAlgoText').value)">ยืนยัน</button>
+						</div>
+						<div id="editAlgoFooter" style="display: none">
+							<button type="button" class="btn btn-info btn-lg" onclick="algoCheck(document.getElementById('editAlgoType').value, document.getElementById('editAmtAlgoCode').value,  editAlgoCodeMain.getValue(), editAlgoCodeFn1.getValue(), editAlgoCodeFn2.getValue())">ทดสอบคำสั่ง</button>
+							<button type="button" class="btn btn-success btn-lg" id="editAlgoButton" onclick="editAlgo(document.getElementById('editAlgoTypeNew').value, document.getElementById('editAlgoName').value, document.getElementById('editAlgoNameNew').value, document.getElementById('editAmtAlgoCode').value,  editAlgoCodeMain.getValue(), editAlgoCodeFn1.getValue(), editAlgoCodeFn2.getValue(), document.getElementById('editAlgoGuideBe').value, document.getElementById('editAlgoGuideAf').value, document.getElementById('editAlgoText').value)">ยืนยัน</button>
+						</div>
+						<div id="delAlgoFooter" style="display: none">
+							<button type="button" class="btn btn-success btn-lg" onclick="delAlgo(document.getElementById('delAlgoName').value)">ยืนยัน</button>
+						</div>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false;" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="algoCheckingModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">ผลการทดสอบคำสั่ง</h1>
+					</div>
+					<div class="modal-body">
+						<div id="algoCheckingSuccess" style="display: none">
+							<h2>ไม่พบข้อผิดพลาด</h2>
+							<table class="table">
+								<tbody>
+									<tr class="table-success">
+										<th scope="row" style="width: 30%; font-size: 24px;">ชุดข้อมูลที่ใช้ทดสอบ: </th>
+										<td id="algoCheckingInputParametersArrText" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="algoCheckingTargetValue" class="table-success">
+										<th scope="row" style="width: 30%; font-size: 24px;">ค่าข้อมูลที่ต้องการค้นหา: </th>
+										<td id="algoCheckingTargetValueText" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="algoCheckingSearchingResult" class="table-success">
+										<th scope="row" style="width: 30%; font-size: 24px;">ผลการค้นหา: </th>
+										<td id="algoCheckingSearchingResultText" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="algoCheckingSortingOrder" class="table-success">
+										<th scope="row" style="width: 30%; font-size: 24px;">ลำดับการจัดเรียงข้อมูล: </th>
+										<td id="algoCheckingSortingOrderText" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="algoCheckingSortedOutputAscending" class="table-success">
+										<th scope="row" style="width: 30%; font-size: 24px;">ชุดข้อมูลที่ได้ (น้อยไปมาก): </th>
+										<td id="algoCheckingSortedOutputAscendingText" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="algoCheckingSortedOutputDescending" class="table-success">
+										<th scope="row" style="width: 30%; font-size: 24px;">ชุดข้อมูลที่ได้ (มากไปน้อย): </th>
+										<td id="algoCheckingSortedOutputDescendingText" style="font-size: 20px;"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="algoCheckingError" style="display: none">
+							<h2>พบข้อผิดพลาด</h2>
+							<table class="table">
+								<tbody>
+									<tr id="algoCheckingErrorMsg" class="table-danger">
+										<td id="algoCheckingErrorMsgText" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="algoCheckingErrorArr" class="table-danger">
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info btn-lg" id="playingSeqModalButton" data-dismiss="modal" data-toggle="modal" href="#playingSeqModal">ลำดับการทำกิจกรรม</button>
+						<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" data-toggle="modal" href="#algoManagerModal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="playingSeqModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">ลำดับการทำกิจกรรม</h1>
+					</div>
+					<div class="modal-body">
+						<textarea class="form-control form-control-lg" rows="12" id="playingSeqArr" style="display: none; font-size: 20px;" readonly></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" data-dismiss="modal" data-toggle="modal" href="#algoCheckingModal">ผลการทดสอบคำสั่ง</button>
+						<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" data-toggle="modal" href="#algoManagerModal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="fnDesignGuideModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">วิธีออกแบบคำสั่ง</h1>
+					</div>
+					<div class="modal-body">
+						<h2><a href="#" id="fnDesignGuideTitle1" style="text-decoration: none">1. การตั้งชื่อคำสั่ง</a></h2>
+						<textarea class="form-control form-control-lg" rows="5" id="fnDesignGuideText1" style="display: none; font-size: 20px;" readonly>ไม่มีชื่อคำสั่ง หากต้องการเรียกใช้คำสั่งหลัก ให้เรียกใช้ "thisFn()" หากต้องการเรียกใช้คำสั่งรอง ให้เรียกใช้ "fn1()" และ "fn2()" ตามลำดับ&#013;&#010;ตัวอย่าง:&#013;&#010;function (array, targetValue){&#013;&#010;	thisFn(array, targetValue);&#013;&#010;}</textarea>
+						<h2><a href="#" id="fnDesignGuideTitle2" style="text-decoration: none">2. ข้อมูลที่รับเข้ามาในคำสั่งหลัก</a></h2>
+						<textarea class="form-control form-control-lg" rows="5" id="fnDesignGuideText2" style="display: none; font-size: 20px;" readonly>แบ่งตามประเภทของขั้นตอนวิธี&#013;&#010;1) การค้นหาข้อมูลประกอบไปด้วยชุดข้อมูล (Array) และค่าเป้าหมาย (Target Value)&#013;&#010;2) การจัดเรียงข้อมูลประกอบไปด้วยชุดข้อมูล (Array) และการลำดับข้อมูล (Sorting Order)&#013;&#010;ตัวอย่าง:&#013;&#010;function (array, sortingOrder = 'ascending'){}</textarea>
+						<h2><a href="#" id="fnDesignGuideTitle3" style="text-decoration: none">3. คำสั่งที่ใช้ในการทำกิจกรรม</a></h2>
+						<textarea class="form-control form-control-lg" rows="8" id="fnDesignGuideText3" style="display: none; font-size: 20px;" readonly>ประกอบด้วย 6 คำสั่ง&#013;&#010;1) cmd_higlight(ลำดับของผู้แสดง, สี, ข้อความ); ใช้สำหรับไฮไลท์ผู้แสดงที่ต้องการ&#013;&#010;ตัวอย่าง:&#013;&#010;cmd_higlight(i, 'red', 'Pivot');&#013;&#010;หากต้องการยกเลิกไฮไลท์ ให้ใช้คำสั่ง โดยไม่กรอกค่าสีและข้อความ&#013;&#010;2) cmd_scan(ลำดับของผู้แสดง); ใช้สำหรับให้ผู้แสดง แสดง QR Code และผู้ดำเนินการจะถูกเปิดกล้องสำหรับสแกน QR Code&#013;&#010;ตัวอย่าง:&#013;&#010;cmd_scan(i);&#013;&#010;3) cmd_compare(ลำดับของผู้แสดง, สัญลักษณ์, ลำดับของผู้แสดง); ใช้สำหรับถามคำถามผู้ดำเนินการและผู้สังเกตการณ์เพื่อเปรียบเทียบค่าข้อมูลของผู้แสดงทั้ง 2&#013;&#010;ตัวอย่าง:&#013;&#010;cmd_compare(i, '<', i+1);&#013;&#010;4) cmd_swap(ลำดับของผู้แสดง, ลำดับของผู้แสดง); ใช้สำหรับสลับตำแหนงของผู้แสดง&#013;&#010;ตัวอย่าง:&#013;&#010;cmd_swap(i, i+1);&#013;&#010;5) cmd_is_sorted(ชุดข้อมูล, การลำดับข้อมูล); ใช้สำหรับตรวจสอบชุดข้อมูลว่าถูกจัดเรียงแล้วหรือไม่&#013;&#010;ตัวอย่าง:&#013;&#010;cmd_is_sorted(array, sortingOrder);&#013;&#010;6) cmd_is_found(ลำดับของผู้แสดง, ค่าเป้าหมาย); ใช้สำหรับตรวจสอบค่าเป้าหมายที่ต้องการค้นหา&#013;&#010;ตัวอย่าง:&#013;&#010;cmd_is_found(i, targetValue);</textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" data-toggle="modal" href="#algoManagerModal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="activityReportModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">รายงานการทำกิจกรรม</h1>
+					</div>
+					<div class="modal-body">
+						<div id="rptSearching" style="display: block">
+							<form class="form-group">
+								<label for="rptSemesters">ภาคเรียนที่:</label><br>
+								<select class="form-control form-control-lg" id="rptSemesters">
+								</select>
+								<label for="rptSections">กลุ่มเรียนที่:</label><br>
+								<select class="form-control form-control-lg" id="rptSections">
+								</select>
+								<label for="rptDateTime">วันและเวลา:</label><br>
+								<select class="form-control form-control-lg" id="rptDateTime">
+								</select>
+							</form>
+						</div>
+						<div id="rptResult" style="display: none">
+							<table class="table">
+								<tbody>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">ภาคเรียน: </th>
+										<td id="rptResultSemesters" style="font-size: 20px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">กลุ่มเรียน: </th>
+										<td id="rptResultSections" style="font-size: 20px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">วันและเวลา: </th>
+										<td id="rptResultDateTime" style="font-size: 20px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">ขั้นตอนวิธี: </th>
+										<td id="rptResultAlgoName" style="font-size: 20px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">ผู้ดำเนินการ: </th>
+										<td id="rptResultOperator" style="font-size: 20px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">ผู้แสดง: </th>
+										<td id="rptResultActors" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="rptResultObserversTr" class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">ผู้สังเกตการณ์: </th>
+										<td id="rptResultObservers" style="font-size: 20px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">เวลาที่ทำได้: </th>
+										<td id="rptResultTime" style="font-size: 20px;"></td>
+									</tr>
+									<tr id="rptSearchingResultantTr" class="table-info">
+										<th scope="row" style="width: 30%; font-size: 24px;">ผลการค้นหา: </th>
+										<td id="rptSearchingResultant" style="font-size: 20px;"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div id="rptSearchingFooter" style="display: block">
+							<button type="button" class="btn btn-success btn-lg" onclick="getReport(document.getElementById('rptSemesters').value, document.getElementById('rptSections').value, document.getElementById('rptDateTime').value)">ยืนยัน</button>
+						</div>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false; $('#rptResult').hide(); $('#rptSearching').show(); $('#rptSearchingFooter').show();" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="joinRoomModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title">เข้าร่วมการทำกิจกรรม</h2>
+					</div>
+					<div class="modal-body">
+						<form class="form-group">
+							<label for="roomId">รหัสห้อง:</label>
+							<input type="text" class="form-control form-control-lg" id="roomId" placeholder="กรอกรหัสห้อง" required>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-lg" onclick="joiningRoom(document.getElementById('roomId').value)">ยืนยัน</button>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false;" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="stdRecordModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title">ดูสถิติตนเอง</h1>
+					</div>
+					<div class="modal-body">
+						<div id="stdRecordSearching" style="display: block">
+							<form class="form-group">
+								<label for="stdRecordDateTime">วันและเวลา:</label><br>
+								<select class="form-control form-control-lg" id="stdRecordDateTime">
+								</select>
+							</form>
+						</div>
+						<div id="stdRecordResult" style="display: none">
+							<table class="table">
+								<tbody>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 20px;">วันและเวลา: </th>
+										<td id="stdRecordResultDateTime" style="font-size: 16px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 20px;">ขั้นตอนวิธี: </th>
+										<td id="stdRecordResultAlgoName" style="font-size: 16px;"></td>
+									</tr>
+									<tr class="table-info">
+										<th scope="row" style="width: 30%; font-size: 20px;">เวลาที่ทำได้: </th>
+										<td id="stdRecordResultTime" style="font-size: 16px;"></td>
+									</tr>
+									<tr id="stdRecordResultCorrectAnswerTr" class="table-info">
+										<th scope="row" style="width: 30%; font-size: 20px;">ตอบถูก: </th>
+										<td id="stdRecordResultCorrectAnswer" style="font-size: 16px;"></td>
+									</tr>
+									<tr id="stdRecordSearchingResultantTr" class="table-info">
+										<th scope="row" style="width: 30%; font-size: 20px;">ผลการค้นหา: </th>
+										<td id="stdRecordSearchingResultant" style="font-size: 16px;"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div id="stdRecordSearchingFooter" style="display: block">
+							<button type="button" class="btn btn-success btn-lg" onclick="getRecord(document.getElementById('stdRecordDateTime').value)">ยืนยัน</button>
+						</div>
+						<button type="button" class="btn btn-danger btn-lg" onclick="app.paused = false; $('#stdRecordResult').hide(); $('#stdRecordSearching').show(); $('#stdRecordSearchingFooter').show();" data-dismiss="modal">ปิด</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/for_all/Boot.js" type="text/javascript"></script>
+	<script src="js/for_all/Preload.js" type="text/javascript"></script>
+	<script src="js/for_all/Login.js" type="text/javascript"></script>
+	<script src="js/for_teachers/TeacherMenu.js" type="text/javascript"></script>
+	<script src="js/for_students/StudentMenu.js" type="text/javascript"></script>
+	<script src="js/for_all/WaitingRoom.js" type="text/javascript"></script>
+	<script src="js/for_all/PlayingRoom.js" type="text/javascript"></script>
+	<script src="js/for_all/Resultant.js" type="text/javascript"></script>
+	<script src="js/for_all/Main.js" type="text/javascript"></script>
+</html>
